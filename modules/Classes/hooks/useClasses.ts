@@ -34,7 +34,7 @@ export const useClasses = () => {
          setClassesList(st => st.filter(item => item.id !== classSelected.id))
          await service.deleteClassesById(classSelected.id)
       } catch (error) {
-         logger.error('Erro ao excluir escola')
+         logger.error('Erro ao excluir turma')
       } finally {
          handleCleanSelectClass()
       }

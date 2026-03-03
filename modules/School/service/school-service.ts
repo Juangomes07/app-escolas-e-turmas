@@ -16,13 +16,13 @@ export class SchoolService {
    }
 
    public async createSchool(payload:Omit<SchoolModel, 'classes' | 'id'>):Promise<SchoolModel>{
-      const response =  await this.httpService.post<{schools:SchoolModel}>(`/schools`,{school:payload})
-      return response.schools
+      const response =  await this.httpService.post<{school:SchoolModel}>(`/schools`,{school:payload})
+      return response.school
    }
    
    public async editSchool({address,id,name}:Omit<SchoolModel, 'classes'>):Promise<SchoolModel>{
       const payloadBody = {name,address}
-      const response =  await this.httpService.put<{schools:SchoolModel}>(`/schools/${id}`,{school:payloadBody})
-      return response.schools
+      const response =  await this.httpService.put<{school:SchoolModel}>(`/schools/${id}`,{school:payloadBody})
+      return response.school
    }
 }

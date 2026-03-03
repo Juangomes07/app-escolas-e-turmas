@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from "react"
 import { SchoolService } from "../service/school-service"
 
 const BASE_URL = '/api'
-const LOGGER_TAG = 'useLiuseSchoolsstSchools'
+const LOGGER_TAG = 'useSchools'
 
 export const useSchools = () =>{
    const logger = useLogger(LOGGER_TAG)
@@ -51,7 +51,7 @@ export const useSchools = () =>{
    const editSchool = useCallback(async (data:EditSchoolPayload) =>{
       setIsLoading(true)
       try {
-         await service.createSchool(data)
+         await service.editSchool(data)
       } catch (error) {
          logger.error('Erro ao editar escola')
       }
