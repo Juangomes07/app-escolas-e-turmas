@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronDownIcon } from 'lucide-react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native';
 import { z } from 'zod';
@@ -35,7 +35,7 @@ interface GenericFormProps<T extends FormSchema> {
    defaultValues: FormValues<T>;
    onSubmit: (data: FormValues<T>) => void;
    buttonText?: string;
-   isLoading?:boolean
+   isLoading?: boolean
 }
 interface RenderInputProps {
    control: any;
@@ -54,10 +54,10 @@ const RenderInput: React.FC<RenderInputProps> = ({ control, config, errors }) =>
          <SelectPortal>
             <SelectBackdrop />
             <SelectContent style={{ maxHeight: 300 }}>
-               <ScrollView style={{width:'100%'}}>
-               {config.options?.map((item) => (
-                  <SelectItem key={item.value} label={item.label} value={item.value} />
-               ))}
+               <ScrollView style={{ width: '100%' }}>
+                  {config.options?.map((item) => (
+                     <SelectItem key={item.value} label={item.label} value={item.value} />
+                  ))}
                </ScrollView>
             </SelectContent>
          </SelectPortal>
@@ -122,11 +122,17 @@ const GenericForm = <T extends FormSchema>({
    const {
       control,
       handleSubmit,
+      reset,
       formState: { errors }
+
    } = useForm<FormValues<T>>({
       resolver: zodResolver(schema),
       defaultValues: defaultValues,
    });
+
+   useEffect(() => {
+      reset(defaultValues);
+   }, [defaultValues, reset]);
 
    return (
       <VStack space="xl" style={{ padding: 20 }}>
@@ -142,7 +148,7 @@ const GenericForm = <T extends FormSchema>({
          <Button className='bg-brand-500' variant='solid' disabled={isLoading} onPress={handleSubmit(onSubmit)} mt="$4">
             {isLoading ? (
                <Spinner />
-            ):(
+            ) : (
                <ButtonText>{buttonText}</ButtonText>
             )}
          </Button>

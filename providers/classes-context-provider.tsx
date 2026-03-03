@@ -9,14 +9,14 @@ interface ClassProviderProps {
 export interface ClassesContextData {
    classesList: ClassesModel[];
    isLoading: boolean;
-   loadClasses: (filters?:{schoolId?:string}) => Promise<void>;
+   loadClasses: (filters?: { schoolId?: string }) => Promise<void>;
    deleteClass: () => Promise<void>;
-   handleSelectClass: (classSelect:ClassesModel) => void;
+   handleSelectClass: (classSelect: ClassesModel) => void;
    handleCleanSelectClass: () => void;
    classSelected: ClassesModel | null
    createClass: (data: CreateClassesPayload) => Promise<void>
    editClass: (data: EditClassesPayload) => Promise<void>
-   setSearchTerm: (term:string) => void
+   setSearchTerm: (term: string) => void
 
 }
 
@@ -33,9 +33,9 @@ export const ClassProvider: React.FC<ClassProviderProps> = ({ children }) => {
       handleSelectClass: classesLogic.handleSelectClass,
       handleCleanSelectClass: classesLogic.handleCleanSelectClass,
       classSelected: classesLogic.classSelected,
-      createClass:classesLogic.createClass,
-      editClass:classesLogic.editClass,
-      setSearchTerm:classesLogic.setSearchTerm
+      createClass: classesLogic.createClass,
+      editClass: classesLogic.editClass,
+      setSearchTerm: classesLogic.setSearchTerm
    };
 
    return (

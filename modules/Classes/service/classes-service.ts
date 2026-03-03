@@ -28,7 +28,6 @@ export class ClassesService {
 
   public async editClass({ id, academicYear, name, shift, school }: ClassesModel): Promise<ClassesModel> {
     const payloadBody = { academicYear, name, shift, schoolId: school }
-
     const response = await this.httpService.put<{ class: ClassesModel }>(`/classes/${id}`, { class: payloadBody })
     return response.class
   }

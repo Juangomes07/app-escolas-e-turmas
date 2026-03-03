@@ -22,7 +22,7 @@ const SHIFT_OPTIONS: SelectOption[] = [
    { label: 'Noite', value: 'Night' },
 ];
 
-const ACADEMIC_YEAR_OPTIONS = generateValidYearInterval().map(item =>({label:String(item),value:String(item)}))
+const ACADEMIC_YEAR_OPTIONS = generateValidYearInterval().map(item => ({ label: String(item), value: String(item) }))
 
 const NewClass = () => {
    const { loadSchools, schoolList } = useSchoolContext()
@@ -34,15 +34,15 @@ const NewClass = () => {
    const handleCreate = async (data: ClassRegistrationData) => {
       await createClass({
          ...data,
-         academicYear:Number(data.academicYear)
+         academicYear: Number(data.academicYear)
       })
       router.back()
    };
 
    const CLASSES_FIELDS: FieldConfig[] = [
       { name: 'name', label: 'Nome da Turma', type: 'text', placeholder: 'Digite o nome da turma...' },
-      { name: 'shift', label: 'Turno', type: 'select', placeholder: 'selecione o turno', options: SHIFT_OPTIONS, isRequired: true },
-      { name: 'academicYear', label: 'Ano acadêmico', type: 'select', placeholder: 'Selecione o ano...', options: ACADEMIC_YEAR_OPTIONS, isRequired:true },
+      { name: 'shift', label: 'Turno', type: 'select', placeholder: 'Selecione o turno', options: SHIFT_OPTIONS, isRequired: true },
+      { name: 'academicYear', label: 'Ano acadêmico', type: 'select', placeholder: 'Selecione o ano...', options: ACADEMIC_YEAR_OPTIONS, isRequired: true },
       { name: 'school', label: 'Escola', type: 'select', placeholder: 'Selecione uma escola', options: schoolsOptions, isRequired: true },
    ];
 
@@ -63,6 +63,7 @@ const NewClass = () => {
          />
       </BaseLayout>
    );
+
 }
 
 export default NewClass;

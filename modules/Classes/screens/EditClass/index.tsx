@@ -23,7 +23,7 @@ const SHIFT_OPTIONS: SelectOption[] = [
    { label: 'Noite', value: 'Night' },
 ];
 
-const ACADEMIC_YEAR_OPTIONS = generateValidYearInterval().map(item =>({label:String(item),value:String(item)}))
+const ACADEMIC_YEAR_OPTIONS = generateValidYearInterval().map(item => ({ label: String(item), value: String(item) }))
 
 const EditClass = () => {
    const { loadSchools, schoolList } = useSchoolContext()
@@ -31,21 +31,35 @@ const EditClass = () => {
    const router = useRouter()
    const [initialValues, setInitialValues] = useState<ClassEditData | null>(null);
    const schoolsOptions = schoolList.map(item => ({ label: item.name, value: item.id }))
+   const normalizeShift = (v: string) =>
+      REVERSE_SHIFT_MAP[v as keyof typeof REVERSE_SHIFT_MAP] ?? v
+
+
+   const normalizeSchool = (v: string) =>
+      v?.startsWith('scl-')
+         ? v
+         : (schoolsOptions.find((opt) => opt.label === v)?.value ?? v)
 
    const handleCreate = async (data: ClassEditData) => {
+
+
+      const shift = normalizeShift(data.shift)
+      const school = normalizeSchool(data.school)
+
       await editClass({
          ...data,
          id: classSelected?.id || '',
-         academicYear:Number(data.academicYear),
-         shift: REVERSE_SHIFT_MAP[data.shift],
-         school: schoolsOptions.find(item => item.label === data.school)?.value
+         academicYear: Number(data.academicYear),
+         shift,
+         school
       })
+
       router.back()
    };
 
    const CLASSES_FIELDS: FieldConfig[] = [
       { name: 'name', label: 'Nome da Turma', type: 'text', placeholder: 'Digite o nome da turma...' },
-      { name: 'shift', label: 'Turno', type: 'select', placeholder: 'selecione o turno', options: SHIFT_OPTIONS, isRequired: true },
+      { name: 'shift', label: 'Turno', type: 'select', placeholder: 'Selecione o turno', options: SHIFT_OPTIONS, isRequired: true },
       { name: 'academicYear', label: 'Ano acadêmico', type: 'select', placeholder: 'Selecione o ano...', options: ACADEMIC_YEAR_OPTIONS, isRequired: true },
       { name: 'school', label: 'Escola', type: 'select', placeholder: 'Selecione uma escola', options: schoolsOptions, isRequired: true },
    ];
@@ -70,7 +84,7 @@ const EditClass = () => {
             setInitialValues(formattedValues)
          }
       }
-   }, [classSelected])
+   }, [classSelected, schoolList])
 
    return (
       <BaseLayout hasBack title='Editar turma'>
