@@ -10,8 +10,6 @@ import { SchoolModel } from '@/models/school';
 import { MapPin, PenBox, Trash, UsersRound } from 'lucide-react-native';
 import React from 'react';
 
-// import { Container } from './styles';
-
 type Props = {
    item: SchoolModel,
    handleEditPress: () => void

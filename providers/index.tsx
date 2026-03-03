@@ -4,7 +4,6 @@ import { ClassProvider } from './classes-context-provider';
 import { GluestackUIProvider } from './gluestack-ui-provider';
 import { SchoolProvider } from './school-context-provider';
 
-// import { Container } from './styles';
 type Props = {
    children: ReactNode
 }

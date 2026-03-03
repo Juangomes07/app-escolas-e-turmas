@@ -56,7 +56,7 @@ const ListClasses = () => {
             variant="outline"
             size="lg"
           >
-            <InputField onChangeText={text => setSearchTerm(text)} placeholder="Filtre a Turma de sua preferência..." />
+            <InputField onChangeText={text => setSearchTerm(text)} placeholder="Filtre por turma..." />
           </Input>
           <Button onPress={handleAdd} className='h-full bg-green-500' variant='solid' action='positive'>
             <Icon as={PlusIcon} className='text-white' size='sm' />
