@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+   --color-brand-200:#f5f5ed;
+
+   --color-brand-500:#d9ea19;
+
+   --color-brand-secondary-500:#000000;
+}
