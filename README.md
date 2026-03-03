@@ -126,7 +126,7 @@ server.js            # MirageJS server (mock API)
 
 ---
 
-## 🧠 Arquitetura (visão “senior”)
+## 🧠 Arquitetura 
 
 ### Camadas e responsabilidades
 - **Routes (`app/`)**: ponto de entrada das telas e navegação (Expo Router)
@@ -211,7 +211,7 @@ Exemplos:
 
 ---
 
-## 📦 Build (Opcional)
+## 📦 Build 
 
 Para builds de produção, use EAS:
 
@@ -224,9 +224,8 @@ eas build -p android
 
 ---
 
-## 📸 Prints (Opcional)
+## 📸 Prints 
 
-Adicione prints em `docs/` e referencie aqui:
 - Lista de escolas
 - Formulário de escola
 - Lista de turmas
