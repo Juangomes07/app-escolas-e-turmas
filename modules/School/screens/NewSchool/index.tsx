@@ -14,19 +14,19 @@ type SchoolRegistrationData = z.infer<typeof SchoolRegistrationSchema>;
 
 const SCHOOL_FIELDS: FieldConfig[] = [
    { name: 'name', label: 'Nome da escola', type: 'text', placeholder: 'Digite o nome da escola...' },
-   { name: 'address', label: 'Endereço', type: 'text', placeholder: 'Digite o endereço...', isRequired: true },
+   { name: 'address', label: 'Endereço', type: 'text', placeholder: 'Rua, número, bairro', isRequired: true },
 ];
 
 const NewSchool = () => {
-   const { createSchool,isLoading } = useSchoolContext()
+   const { createSchool, isLoading } = useSchoolContext()
    const router = useRouter()
    const defaultValues: SchoolRegistrationData = { name: '', address: '' };
-   
+
    const handleCreate = async (data: SchoolRegistrationData) => {
       await createSchool(data)
       router.back()
    };
-   
+
    return (
       <BaseLayout hasBack title='Nova escola'>
          <GenericForm

@@ -7,18 +7,18 @@ import { Icon } from '@/components/gluestack-ui/icon';
 import { Text } from '@/components/gluestack-ui/text';
 import { VStack } from '@/components/gluestack-ui/vstack';
 import { SchoolModel } from '@/models/school';
-import { GraduationCap, MapPin, PenBox, Trash } from 'lucide-react-native';
+import { MapPin, PenBox, Trash, UsersRound } from 'lucide-react-native';
 import React from 'react';
 
 // import { Container } from './styles';
 
 type Props = {
    item: SchoolModel,
-   handleEditPress:() => void
-   handleDeletePress:() => void
+   handleEditPress: () => void
+   handleDeletePress: () => void
 }
 
-const ListItem = ({ item,handleEditPress, handleDeletePress }: Props) => {
+const ListItem = ({ item, handleEditPress, handleDeletePress }: Props) => {
    return (
       <Box className='w-full p-4 bg-white rounded-xl'>
          <HStack className='justify-between'>
@@ -27,7 +27,7 @@ const ListItem = ({ item,handleEditPress, handleDeletePress }: Props) => {
                   {item.name}
                </Heading>
                <Badge className='w-[100px]' variant='solid' size='sm' action='info'>
-                  <BadgeIcon as={GraduationCap} size='lg' className="mr-2" />
+                  <BadgeIcon as={UsersRound} size='lg' className="mr-2" />
                   <BadgeText>{item.classes?.length || 0} Turmas</BadgeText>
                </Badge>
                <HStack className='items-center gap-1'>
