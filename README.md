@@ -190,8 +190,8 @@ server.js            # MirageJS server (mock API)
 - Padronização de comandos via `npm`
 
 Sugestão de próximos passos:
-- ESLint + Prettier (se desejar reforçar padrão)
-- Conventional Commits (ver abaixo)
+- ESLint + Prettier 
+- Conventional Commits 
 
 ---
 
@@ -227,9 +227,21 @@ eas build -p android
 ## 📸 Prints 
 
 - Lista de escolas
+- <img width="390" height="844" alt="image" src="https://github.com/user-attachments/assets/e12f0d29-221b-48d3-bb4a-9fd18b925854" />
+
 - Formulário de escola
+- <img width="384" height="839" alt="image" src="https://github.com/user-attachments/assets/e28b4d75-6dab-4764-a0dd-ecd6836da648" />
+- Editar escola
+- <img width="375" height="788" alt="image" src="https://github.com/user-attachments/assets/8986b235-8526-4818-9235-4196de1c5ddd" />
+
 - Lista de turmas
+- <img width="373" height="804" alt="image" src="https://github.com/user-attachments/assets/c0c7f91d-d16e-4550-8713-2df4c3e37166" />
+
 - Formulário de turma
+- <img width="375" height="792" alt="image" src="https://github.com/user-attachments/assets/01bd185b-a210-4788-b1b7-1f17b01e4a11" />
+
+- Edição de turma
+<img width="374" height="798" alt="image" src="https://github.com/user-attachments/assets/188e2a88-bcf4-4e61-b692-f085127f4f0a" />
 
 ---
 
