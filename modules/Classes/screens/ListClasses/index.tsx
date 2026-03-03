@@ -110,7 +110,7 @@ const ListClasses = () => {
       <DeleteItemModal
         ref={deleteModalRef}
         title='Excluir item'
-        subtitle='Deseja realmente excluir este item? essa ação nao podera ser desfeita.'
+        subtitle='Deseja realmente excluir esta turma? Essa ação não poderá ser desfeita.'
         performButtonLabel='Excluir'
         performButtonClassName='bg-red-400'
         onPerform={deleteClass}

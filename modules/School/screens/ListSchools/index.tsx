@@ -22,19 +22,19 @@ const ListSchools = () => {
   const { loadSchools, schoolList, handleSelectSchool, deleteSchool, setSearchTerm } = useSchoolContext()
 
   useFocusEffect(
-    useCallback(() =>{
+    useCallback(() => {
       loadSchools()
-    },[])
+    }, [])
   )
 
-  const handleOpenDeleteItemModal = (item:SchoolModel) =>{
+  const handleOpenDeleteItemModal = (item: SchoolModel) => {
     handleSelectSchool(item)
     deleteModalRef.current?.open()
   }
 
   const handleAdd = () => router.push('/school/new')
 
-  const handleEdit = (item:SchoolModel) => {
+  const handleEdit = (item: SchoolModel) => {
     handleSelectSchool(item)
     router.push(`/school/edit/${item.id}`)
   };
@@ -52,7 +52,7 @@ const ListSchools = () => {
             <InputField onChangeText={text => setSearchTerm(text)} placeholder="Filtre a escola de sua preferência..." />
           </Input>
           <Button onPress={handleAdd} className='h-full bg-green-500' variant='solid' action='positive'>
-            <Icon as={PlusIcon} className='text-white' size='sm'/>
+            <Icon as={PlusIcon} className='text-white' size='sm' />
             <ButtonText className='text-white'>Adicionar</ButtonText>
           </Button>
         </HStack>
@@ -61,8 +61,8 @@ const ListSchools = () => {
       </VStack>
       <FlatList
         data={schoolList}
-        renderItem={({ item }) => <ListItem 
-          item={item} 
+        renderItem={({ item }) => <ListItem
+          item={item}
           handleEditPress={() => handleEdit(item)}
           handleDeletePress={() => handleOpenDeleteItemModal(item)}
         />}
@@ -71,7 +71,7 @@ const ListSchools = () => {
       <DeleteItemModal
         ref={deleteModalRef}
         title='Excluir item'
-        subtitle='Deseja realmente excluir este item? essa ação nao podera ser desfeita.'
+        subtitle='Deseja realmente excluir esta escola? Essa ação não podera ser desfeita.'
         performButtonLabel='Excluir'
         performButtonClassName='bg-red-400'
         onPerform={deleteSchool}

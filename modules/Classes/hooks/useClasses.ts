@@ -4,72 +4,100 @@ import { HttpService } from "@/service/http-service"
 import { useCallback, useMemo, useState } from "react"
 import { ClassesService } from "../service/classes-service"
 
-const BASE_URL = '/api'
-const LOGGER_TAG = 'useClasses'
+const BASE_URL = "/api"
+const LOGGER_TAG = "useClasses"
 
 export const useClasses = () => {
-   const logger = useLogger(LOGGER_TAG)
-   const [isLoading, setIsLoading] = useState(false)
-   const [classesList, setClassesList] = useState<ClassesModel[]>([])
-   const [classSelected, seClassSelected] = useState<ClassesModel | null>(null)
-   const [searchTerm,setSearchTerm] = useState('')
-   const service = useMemo(() => new ClassesService(new HttpService(BASE_URL)), [])
+  const logger = useLogger(LOGGER_TAG)
+  const [isLoading, setIsLoading] = useState(false)
+  const [classesList, setClassesList] = useState<ClassesModel[]>([])
+  const [classSelected, seClassSelected] = useState<ClassesModel | null>(null)
+  const [searchTerm, setSearchTerm] = useState("")
 
-   const handleSelectClass = (classSelect: ClassesModel) => seClassSelected(classSelect)
-   const handleCleanSelectClass = () => seClassSelected(null)
+  const service = useMemo(() => new ClassesService(new HttpService(BASE_URL)), [])
 
-   const loadClasses = useCallback(async (filters?:{schoolId?:string}) => {
+  const handleSelectClass = (classSelect: ClassesModel) => seClassSelected(classSelect)
+  const handleCleanSelectClass = () => seClassSelected(null)
+
+  const loadClasses = useCallback(
+    async (filters?: { schoolId?: string }) => {
       setIsLoading(true)
-      const data = await service.listAllClasses(filters)
-      setClassesList(data)
-      setIsLoading(false)
-   }, [])
-
-   const deleteClass = useCallback(async () => {
-      if (!classSelected) {
-         logger.warn('Nenhuma turma selecionada')
-         return
-      }
       try {
-         setClassesList(st => st.filter(item => item.id !== classSelected.id))
-         await service.deleteClassesById(classSelected.id)
+        const data = await service.listAllClasses(filters)
+        setClassesList(data)
       } catch (error) {
-         logger.error('Erro ao excluir turma')
+        logger.error("Erro ao carregar turmas")
       } finally {
-         handleCleanSelectClass()
+        setIsLoading(false)
       }
-   }, [classSelected])
+    },
+    [logger, service]
+  )
 
-   const createClass = useCallback(async (data: CreateClassesPayload) => {
+  const deleteClass = useCallback(async () => {
+    if (!classSelected) {
+      logger.warn("Nenhuma turma selecionada")
+      return
+    }
+
+    // optimistic update
+    const previous = classesList
+    setClassesList((st) => st.filter((item) => item.id !== classSelected.id))
+
+    try {
+      await service.deleteClassesById(classSelected.id)
+    } catch (error) {
+      // rollback
+      setClassesList(previous)
+      logger.error("Erro ao excluir turma")
+    } finally {
+      handleCleanSelectClass()
+    }
+  }, [classSelected, classesList, logger, service])
+
+  const createClass = useCallback(
+    async (data: CreateClassesPayload) => {
       setIsLoading(true)
       try {
-         await service.createClass(data)
+        const created = await service.createClass(data)
+        setClassesList((st) => [created, ...st])
       } catch (error) {
-         logger.error('Erro ao cadastrar turma')
+        logger.error("Erro ao cadastrar turma")
+      } finally {
+        setIsLoading(false)
       }
-      setIsLoading(false)
-   }, [])
+    },
+    [logger, service]
+  )
 
-   const editClass = useCallback(async (data: EditClassesPayload) => {
+  const editClass = useCallback(
+    async (data: EditClassesPayload) => {
       setIsLoading(true)
       try {
-         await service.editClass(data)
+        const updated = await service.editClass(data)
+        setClassesList((st) => st.map((item) => (item.id === updated.id ? updated : item)))
+        seClassSelected((st) => (st?.id === updated.id ? updated : st))
       } catch (error) {
-         logger.error('Erro ao editar turma')
+        logger.error("Erro ao editar turma")
+      } finally {
+        setIsLoading(false)
       }
-      setIsLoading(false)
-   }, [])
+    },
+    [logger, service]
+  )
 
-   return {
-      loadClasses,
-      isLoading,
-      classesList: searchTerm ? classesList.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase())) : classesList,
-      deleteClass,
-      handleSelectClass,
-      handleCleanSelectClass,
-      classSelected,
-      createClass,
-      editClass,
-      setSearchTerm
-   }
+  return {
+    loadClasses,
+    isLoading,
+    classesList: searchTerm
+      ? classesList.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      : classesList,
+    deleteClass,
+    handleSelectClass,
+    handleCleanSelectClass,
+    classSelected,
+    createClass,
+    editClass,
+    setSearchTerm,
+  }
 }

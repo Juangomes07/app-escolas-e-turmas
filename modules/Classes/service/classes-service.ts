@@ -12,7 +12,7 @@ export class ClassesService {
       if(filters && filters.schoolId){
          filtersString = `?schoolId=${filters.schoolId}`
       }
-      
+
       const response = await this.httpService.get<{classes:ClassesModel[]}>(`/classes${filtersString}`)
       return response.classes
    }
@@ -22,14 +22,20 @@ export class ClassesService {
    }
 
    public async createClass(payload: Omit<ClassesModel, 'id'>): Promise<ClassesModel> {
-      const response = await this.httpService.post<{ class: ClassesModel }>(`/classes`, { class: {...payload,schoolId:payload.school} })
+      const response = await this.httpService.post<{ class: ClassesModel }>(
+         `/classes`,
+         { class: { ...payload, schoolId: payload.school } }
+      )
       return response.class
    }
 
    public async editClass({id,academicYear,name,shift,school}: ClassesModel): Promise<ClassesModel> {
       const payloadBody = {academicYear,name,shift,schoolId:school}
 
-      const response = await this.httpService.put<{ class: ClassesModel }>(`/classes/${id}`, { class: payloadBody })
+      const response = await this.httpService.put<{ class: ClassesModel }>(
+         `/classes/${id}`,
+         { class: payloadBody }
+      )
       return response.class
    }
 }
