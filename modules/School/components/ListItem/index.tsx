@@ -19,6 +19,7 @@ type Props = {
 }
 
 const ListItem = ({ item, handleEditPress, handleDeletePress }: Props) => {
+   const count = item.classes?.length ?? 0;
    return (
       <Box className='w-full p-4 bg-white rounded-xl'>
          <HStack className='justify-between'>
@@ -28,7 +29,7 @@ const ListItem = ({ item, handleEditPress, handleDeletePress }: Props) => {
                </Heading>
                <Badge className='w-[100px]' variant='solid' size='sm' action='info'>
                   <BadgeIcon as={UsersRound} size='lg' className="mr-2" />
-                  <BadgeText>{item.classes?.length || 0} Turmas</BadgeText>
+                  <BadgeText> {count} {count === 1 ? "Turma" : "Turmas"}</BadgeText>
                </Badge>
                <HStack className='items-center gap-1'>
                   <Icon as={MapPin} size='sm' />
