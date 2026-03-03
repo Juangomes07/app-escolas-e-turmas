@@ -10,8 +10,8 @@ const HomeScreen = () => {
    const router = useRouter()
 
    return (
-      <BaseLayout title={'Home'}>
-         <Grid className="gap-4" _extra={{ className: 'grid-cols-2' }}>
+      <BaseLayout title={'Gerenciador de Escolas'}>
+         <Grid className="gap-6" _extra={{ className: 'grid-cols-2' }}>
             <GridItem _extra={{ className: 'col-span-1' }}>
                <ScreenCard
                   icon={<Icon as={School} className='text-brand-500' size='4xl' />}
